@@ -21,21 +21,21 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        // OBSERVER: đăng ký trước
+        // Observer: Đăng ký nhận thông báo
         LibraryNotifier notifier = LibraryNotifier.getInstance();
-        notifier.register(new LibraryStaff("Lan"));
+        notifier.register(new LibraryStaff("Hiep_22719711"));
         notifier.register(new RegisteredUser("user_an"));
 
-        // FACTORY METHOD: thêm sách → tự động thông báo Observer
+        // Factory method: thêm sách => tự động thông báo Observer
         System.out.println("===== THÊM SÁCH =====");
         new PhysicalBookCreator().addToLibrary("Lập Trình Java", "James Gosling", "Công nghệ");
         new EBookCreator().addToLibrary("Design Patterns", "Gang of Four", "Công nghệ");
         new AudioBookCreator().addToLibrary("Đắc Nhân Tâm", "Dale Carnegie", "Kỹ năng");
 
-        // SINGLETON: xem danh sách
+        // Singleton: xem danh sách
         Library.getInstance().listAvailable();
 
-        // STRATEGY: tìm kiếm
+        // Strategy: tìm kiếm
         System.out.println("\n===== TÌM KIẾM =====");
         BookSearcher searcher = new BookSearcher();
 
@@ -47,13 +47,13 @@ public class Main {
         searcher.setStrategy(new SearchByGenre());
         results = searcher.search("Công nghệ");
         System.out.println("Tìm theo thể loại 'Công nghệ': ");
-        results.forEach(b -> System.out.println("  → " + b.getTitle()));
+        results.forEach(b -> System.out.println("  => " + b.getTitle()));
 
-        // OBSERVER: thông báo sách hết hạn
+        // Observer: thông báo sách hết hạn
         System.out.println("\n===== THÔNG BÁO HẾT HẠN =====");
         notifier.notifyObservers("HẾT HẠN MƯỢN", "Lập Trình Java");
 
-        // DECORATOR: mượn sách với tính năng bổ sung
+        // Decorator: mượn sách với tính năng bổ sung
         System.out.println("\n===== MƯỢN SÁCH =====");
         BorrowService borrow = new TranslationDecorator(
                 new ExtendedBorrowDecorator(

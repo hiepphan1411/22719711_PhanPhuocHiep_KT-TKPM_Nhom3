@@ -1,6 +1,7 @@
 package iuh.fit.factory;
 
 import iuh.fit.Book;
+import iuh.fit.observer.LibraryNotifier;
 import iuh.fit.singleton.Library;
 
 public abstract class BookCreator {
