@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --quiet --eval \"db.runCommand({ ping: 1 }).ok\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  api:
+    build: ./app
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: mongodb://admin:password@mongo:27017
+      MONGO_DB: mydb
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo_data:

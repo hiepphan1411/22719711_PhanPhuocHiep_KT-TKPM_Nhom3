@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50' # Tối đa 50% của 1 CPU core
+          memory: 256M # Tối đa 256MB RAM
+        reservations:
+          cpus: '0.25' # Đảm bảo tối thiểu 25% CPU
+          memory: 128M # Đảm bảo tối thiểu 128MB RAM

@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: testdb123
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: phuochiep
+      MYSQL_PASSWORD: 1411
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db       
+      PMA_USER: phuochiep
+      PMA_PASSWORD: 1411
+    depends_on:
+      - db              
